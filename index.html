@@ -138,19 +138,19 @@
       song.currentTime = 0;
       song.play();
     }
-      setTimeout(function () {
-        let fadeInterval = setInterval(function () {
-          if (song.volume > 0.04) {
-            song.volume -= 0.05;
-          } else {
-            song.volume = 0;
-            song.pause();
-            song.currentTime = 0;
-            clearInterval(fadeInterval);
-          }
-        }, 300);
-      }, 12000);
-    }
+          setTimeout(function () {
+            let fadeInterval = setInterval(function () {
+              if (song.volume > 0.04) {
+                song.volume -= 0.05;
+              } else {
+                song.volume = 0;
+                song.pause();
+                song.currentTime = 0;
+                clearInterval(fadeInterval);
+              }
+            }, 300);
+          }, 12000);
+        }
 
     const canvas = document.getElementById('confetti');
     const ctx = canvas.getContext('2d');
@@ -190,4 +190,5 @@
 
 </body>
 </html>
+
 
