@@ -13,6 +13,22 @@
       height: 100%;
       pointer-events: none;
       z-index: 999;
+      @media (max-width: 600px) {
+  h1 {
+    font-size: 24px;   /* smaller headings for mobile */
+  }
+
+  p {
+    font-size: 14px;   /* smaller paragraphs */
+    max-width: 90vw;   /* fit screen width */
+  }
+
+  .click-hint {
+    padding: 12px 20px;
+    font-size: 14px;   /* smaller clickable button */
+  }
+}
+
     }
 
     body {
@@ -37,6 +53,7 @@
       text-align: center;
       padding: 10px;
       box-sizing: border-box;
+      overflow: hidden;
     }
 
     .active { display: flex; }
@@ -64,8 +81,8 @@
     .click-hint:hover { transform: scale(1.05); }
 
     img {
-      max-width: 220px;
-      max-height: 220px;
+      max-width: 80vw;
+      max-height: 40vh;
       border-radius: 20px;
       margin: 10px 0;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
@@ -193,3 +210,4 @@
 
 </body>
 </html>
+
