@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Diya | 16 January</title>
+  <style>
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .active { display: flex; }
+
+    h1 { color: #7a003c; margin-bottom: 10px; }
+
+    p {
+      color: #4a0030;
+      font-size: 18px;
+      max-width: 600px;
+    }
+
+    .click-hint {
+      margin-top: 30px;
+      padding: 15px 25px;
+      background: #ffffff;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+
+    .click-hint:hover { transform: scale(1.05); }
+
+    img {
+      max-width: 280px;
+      border-radius: 20px;
+      margin: 15px 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .heart {
+      font-size: 28px;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="confetti"></canvas>
+
+  <!-- Replace these URLs with hosted links -->
+  <audio id="birthdaySong" src="happy-birthday.mp3"></audio>
+
+  <div class="screen active" id="screen1">
+    <h1>Happy Birthday Diya Di</h1>
+    <p>Born on 16 January</p>
+    <img src="Hello.png" alt="Memory Photo">
+    <p>
+      You are not just my cousin, you are my sister, my friend,
+      and one of the most precious people in my life.
+    </p>
+    <p style="font-style: italic;">Sisters are different flowers from the same garden.</p>
+    <p style="font-style: italic;">Having a sister like you makes life brighter every day.</p>
+    <div class="click-hint" onclick="goNext()">
+      Click here to see your surprise
+    </div>
+  </div>
+
+  <div class="screen" id="screen2">
+    <h1>A Special Message for You, Diya Di</h1>
+    <p>16 January , a day that became special because of you</p>
+    <img src="Hello1.png" alt="Another Memory">
+    <p>
+      May your life be filled with happiness, success, laughter,
+      and endless beautiful moments.
+      <br><br>
+      A sister is both your mirror and your opposite.
+      <br><br>
+      Side by side or miles apart, sisters will always be connected by heart.
+      <br><br>
+      I am so lucky to have you as my sister. Always stay the way you are.
+      <br><br>
+      Some people make the world beautiful just by being in it , you are one of them.
+    </p>
+    <div class="heart">Love</div>
+    <p style="margin-top:20px; font-size:16px;">With lots of love</p>
+  </div>
+
+  <script>
+    function goNext() {
+      startConfetti();
+      playSong();
+      document.getElementById('screen1').classList.remove('active');
+      document.getElementById('screen2').classList.add('active');
+    }
+
+    function playSong() {
+      const song = document.getElementById('birthdaySong');
+      song.volume = 0.6;
+      song.play();
+    }
+
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let confettiPieces = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function startConfetti() {
+      confettiPieces = [];
+      for (let i = 0; i < 120; i++) {
+        confettiPieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 6 + 4,
+          speed: Math.random() * 3 + 2
+        });
+      }
+      requestAnimationFrame(updateConfetti);
+    }
+
+    function updateConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confettiPieces.forEach(p => {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+        p.y += p.speed;
+      });
+      requestAnimationFrame(updateConfetti);
+    }
+  </script>
+
+</body>
+</html>
