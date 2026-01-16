@@ -14,6 +14,7 @@
       pointer-events: none;
       z-index: 999;
     }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -85,19 +86,17 @@
 <body>
 
   <canvas id="confetti"></canvas>
-
-  <!-- Replace these URLs with hosted links -->
+  
   <audio id="birthdaySong" src="happy-birthday.mp3"></audio>
 
   <div class="screen active" id="screen1">
-    <h1>Happy Birthday, Diya Di </h1>
+    <h1>Happy Birthday Diya Di</h1>
     <p>Born on 16 January</p>
     <img src="Hello.png" alt="Memory Photo">
     <p>
       You are not just my cousin, you are my sister, my friend,
       and one of the most precious people in my life.
     </p>
-    <p style="font-style: italic;">Sisters are different flowers from the same garden.</p>
     <p style="font-style: italic;">Having a sister like you makes life brighter every day.</p>
     <div class="click-hint" onclick="goNext()">
       Click here to see your surprise
@@ -105,7 +104,7 @@
   </div>
 
   <div class="screen" id="screen2">
-    <h1>A Special Message for You, Diya Di </h1>
+    <h1>A Special Message for You, Diya Di</h1>
     <p>16 January , a day that became special because of you</p>
     <img src="Hello1.png" alt="Another Memory">
     <p>
@@ -118,7 +117,7 @@
       <br><br>
       I am so lucky to have you as my sister. Always stay the way you are.
       <br><br>
-      Some people make the world beautiful just by being in it , you are one of them.
+      Some people make the world beautiful just by being in it — you are one of them.
     </p>
     <div class="heart">Love</div>
     <p style="margin-top:20px; font-size:16px;">With lots of love</p>
@@ -126,32 +125,36 @@
 
   <script>
     function goNext() {
-      startConfetti();
-      playSong();
       document.getElementById('screen1').classList.remove('active');
       document.getElementById('screen2').classList.add('active');
+      startConfetti();
+      playSong();
     }
 
     function playSong() {
       const song = document.getElementById('birthdaySong');
+      if (!song) return;
+
       song.volume = 0.5;
       song.currentTime = 0;
-      song.play();
-    }
-          setTimeout(function () {
-            let fadeInterval = setInterval(function () {
-              if (song.volume > 0.04) {
-                song.volume -= 0.05;
-              } else {
-                song.volume = 0;
-                song.pause();
-                song.currentTime = 0;
-                clearInterval(fadeInterval);
-              }
-            }, 300);
-          }, 12000);
-        }
+      song.play().catch(() => {});
 
+      // Fade out and stop after 12 seconds
+      setTimeout(function () {
+        let fade = setInterval(function () {
+          if (song.volume > 0.04) {
+            song.volume -= 0.05;
+          } else {
+            clearInterval(fade);
+            song.pause();
+            song.currentTime = 0;
+            song.volume = 0.5;
+          }
+        }, 300);
+      }, 12000);
+    }
+
+    // Confetti animation
     const canvas = document.getElementById('confetti');
     const ctx = canvas.getContext('2d');
     let confettiPieces = [];
@@ -190,5 +193,3 @@
 
 </body>
 </html>
-
-
